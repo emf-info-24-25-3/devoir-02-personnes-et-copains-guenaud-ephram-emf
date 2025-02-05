@@ -1,17 +1,77 @@
 package models;
 
 public class Personne {
-    
-        //
-        //              )        (                 ) (           (         (
-        //           ( /(   *   ))\ )        (  ( /( )\ )        )\ )  (   )\ )
-        //     (   ( )\())` )  /(()/((       )\ )\()|()/(  (    (()/(  )\ (()/(
-        //     )\  )((_)\  ( )(_))(_))\    (((_|(_)\ /(_)) )\    /(_)|((_) /(_))
-        //    ((_)((_)((_)(_(_()|_))((_)   )\___ ((_|_))_ ((_)  (_)) )\___(_))
-        //    __   _____ _____ ___ ___    ___ ___  ___  ___   ___ ___ ___   _
-        //    \ \ / / _ \_   _| _ \ __|  / __/ _ \|   \| __| |_ _/ __|_ _| | |
-        //     \ V / (_) || | |   / _|  | (_| (_) | |) | _|   | | (__ | |  |_|
-        //      \_/ \___/ |_| |_|_\___|  \___\___/|___/|___| |___\___|___| (_)
-        //
+        private final static int MAX_COPAINS = 10;
+        private String nom;
+        private String prenom;
+        private Personne[] copains = new Personne[MAX_COPAINS];
 
+        public Personne(String nom, String prenom) {
+                this.nom = nom;
+                this.prenom = prenom;
+        }
+
+        public final String getNom() {
+                return this.nom;
+        }
+
+        public final String getPrenom() {
+                return this.prenom;
+        }
+
+        public String toString() {
+                String texte;
+                if (nombreDeCopain() == 0) {
+                        texte = getPrenom() + " " + getNom().toUpperCase() + " et ses copains ()";
+                } else {
+                        texte = getPrenom() + " " + getNom().toUpperCase() + " et ses copains (" + copainsComplet() + ")";
+                }
+                return texte;
+        }
+
+        public boolean ajouteCopain(Personne copain) {
+                boolean aReussis = false;
+                for (int i = 0; i < copains.length; i++) {
+                        if (copains[i] != null) {
+                                copains[i] = copain;
+                                aReussis = true;
+                                break;
+                        }
+                }
+                return aReussis;
+        }
+
+        public boolean retireCopain(Personne copain) {
+                boolean aReussis = false;
+                for (int i = 0; i < copains.length; i++) {
+                        if (copains[i] == copain) {
+                                copains[i] = null;
+                                aReussis = true;
+                                break;
+                        }
+                }
+                return aReussis;
+        }
+
+        public int nombreDeCopain() {
+                int compteur = 0;
+                for (int i = 0; i < copains.length; i++) {
+                        if (copains[i] != null) {
+                                compteur++;
+                        }
+                }
+                return compteur;
+        }
+
+        public Personne[] copainsComplet() {
+                Personne[] copainsComplet = new Personne[nombreDeCopain()];
+                int compteur = 0;
+                for (int i = 0; i < this.copains.length; i++) {
+                        if (copains[i] != null) {
+                                copainsComplet[compteur] = copains[i];
+                                compteur++;
+                        }
+                }
+                return copainsComplet;
+        }
 }
