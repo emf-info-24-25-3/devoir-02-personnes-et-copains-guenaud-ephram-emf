@@ -20,11 +20,19 @@ public class Personne {
         }
 
         public String toString() {
-                String texte;
+                String copainsTexte = "";
+                int compteur = 0;
+                for (int i = 0; i < this.copains.length; i++) {
+                        if (copains[i] != null) {
+                                copainsTexte = copainsTexte + copainsComplet()[compteur];
+                                compteur++;
+                        }
+                }
+                String texte = "";
                 if (nombreDeCopain() == 0) {
                         texte = getPrenom() + " " + getNom().toUpperCase() + " et ses copains ()";
-                } else {
-                        texte = getPrenom() + " " + getNom().toUpperCase() + " et ses copains (" + copainsComplet() + ")";
+                } else if (nombreDeCopain() > 0) {
+                        texte = getPrenom() + " " + getNom().toUpperCase() + " et ses copains (" + copainsTexte + ")";
                 }
                 return texte;
         }
@@ -32,7 +40,7 @@ public class Personne {
         public boolean ajouteCopain(Personne copain) {
                 boolean aReussis = false;
                 for (int i = 0; i < copains.length; i++) {
-                        if (copains[i] != null) {
+                        if (copains[i] == null) {
                                 copains[i] = copain;
                                 aReussis = true;
                                 break;
