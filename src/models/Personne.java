@@ -4,11 +4,12 @@ public class Personne {
         private final static int MAX_COPAINS = 10;
         private String nom;
         private String prenom;
-        private Personne[] copains = new Personne[MAX_COPAINS];
+        private Personne[] copains;
 
         public Personne(String nom, String prenom) {
                 this.nom = nom;
                 this.prenom = prenom;
+                this.copains = new Personne[MAX_COPAINS];
         }
 
         public final String getNom() {
